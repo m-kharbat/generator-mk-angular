@@ -8,7 +8,6 @@
     "bower_components"
   ],
   "dependencies": {
-    "jquery": "~2.2",
     "lodash": "~4.9",
     "angular": "~1.5",
     <% if(uirouter) { print('"angular-ui-router": "~0.2",'); } else { print('"angular-route": "~1.5",'); } %>
@@ -17,7 +16,8 @@
     "angular-cookies": "~1.5",
     "angular-mocks": "~1.5",
     "moment": "~2.12",
-    "less.js": "~2.6",
+    "jquery": "~2.2",
+    "less.js": "~1.7.5",
     "font-awesome": "~4.5"
   }
 }
