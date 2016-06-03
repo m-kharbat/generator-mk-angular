@@ -2,7 +2,7 @@
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var path = require('path');
-var cgUtils = require('../utils.js');
+var mkUtils = require('../utils.js');
 var chalk = require('chalk');
 var _ = require('underscore');
 var fs = require('fs');
@@ -12,7 +12,7 @@ _.mixin(_.str.exports());
 
 var DirectiveGenerator = module.exports = function DirectiveGenerator(args, options, config) {
 
-    cgUtils.getNameArg(this,args);
+    mkUtils.getNameArg(this,args);
 
     yeoman.generators.Base.apply(this, arguments);
 
@@ -30,14 +30,14 @@ DirectiveGenerator.prototype.askFor = function askFor() {
         default: true
     }];
 
-    cgUtils.addNamePrompt(this,prompts,'directive');
+    mkUtils.addNamePrompt(this,prompts,'directive');
 
     this.prompt(prompts, function (props) {
         if (props.name){
             this.name = props.name;
         }
         this.needpartial = props.needpartial;
-        cgUtils.askForModuleAndDir('directive',this,this.needpartial,cb);
+        mkUtils.askForModuleAndDir('directive',this,this.needpartial,cb);
     }.bind(this));
 
 };
@@ -53,6 +53,6 @@ DirectiveGenerator.prototype.files = function files() {
 
     this.htmlPath = path.join(this.dir,this.name + '.html').replace(/\\/g,'/');;
 
-    cgUtils.processTemplates(this.name,this.dir,'directive',this,defaultDir,configName,this.module);
+    mkUtils.processTemplates(this.name,this.dir,'directive',this,defaultDir,configName,this.module);
 
 };

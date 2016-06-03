@@ -3,7 +3,7 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 var path = require('path');
 var fs = require('fs');
-var cgUtils = require('../utils.js');
+var mkUtils = require('../utils.js');
 var _ = require('underscore');
 var chalk = require('chalk');
 var fs = require('fs');
@@ -14,7 +14,7 @@ _.mixin(_.str.exports());
 
 var PartialGenerator = module.exports = function PartialGenerator(args, options, config) {
 
-    cgUtils.getNameArg(this,args);
+    mkUtils.getNameArg(this,args);
 
     yeoman.generators.Base.apply(this, arguments);
 
@@ -32,14 +32,14 @@ PartialGenerator.prototype.askFor = function askFor() {
         }
     ];
 
-    cgUtils.addNamePrompt(this,prompts,'partial');
+    mkUtils.addNamePrompt(this,prompts,'partial');
 
     this.prompt(prompts, function (props) {
         if (props.name){
             this.name = props.name;
         }
         this.route = url.resolve('',props.route);
-        cgUtils.askForModuleAndDir('partial',this,true,cb);
+        mkUtils.askForModuleAndDir('partial',this,true,cb);
     }.bind(this));
 };
 
@@ -47,11 +47,11 @@ PartialGenerator.prototype.files = function files() {
 
     this.ctrlname = _.camelize(_.classify(this.name)) + 'Ctrl';
 
-    cgUtils.processTemplates(this.name,this.dir,'partial',this,null,null,this.module);
+    mkUtils.processTemplates(this.name,this.dir,'partial',this,null,null,this.module);
 
     if (this.route && this.route.length > 0){
         var partialUrl = this.dir + this.name + '.html';
-        cgUtils.injectRoute(this.module.file,this.config.get('uirouter'),this.name,this.route,partialUrl,this);
+        mkUtils.injectRoute(this.module.file,this.config.get('uirouter'),this.name,this.route,partialUrl,this);
     }
 
 };

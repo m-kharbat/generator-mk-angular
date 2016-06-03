@@ -2,27 +2,27 @@
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
-var cgUtils = require('../utils.js');
+var mkUtils = require('../utils.js');
 
-var CgangularGenerator = module.exports = function CgangularGenerator(args, options, config) {
+var MKangularGenerator = module.exports = function MKangularGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
         this.config.set('partialDirectory','partial/');
-        this.config.set('modalDirectory','partial/');
+        //TODO: add component directory
         this.config.set('directiveDirectory','directive/');
         this.config.set('filterDirectory','filter/');
         this.config.set('serviceDirectory','service/');
         var inject = {
             js: {
                 file: 'index.html',
-                marker: cgUtils.JS_MARKER,
+                marker: mkUtils.JS_MARKER,
                 template: '<script src="<%= filename %>"></script>'
             },
             less: {
                 relativeToModule: true,
                 file: '<%= module %>.less',
-                marker: cgUtils.LESS_MARKER,
+                marker: mkUtils.LESS_MARKER,
                 template: '@import "<%= filename %>";'
             }
         };
@@ -34,9 +34,9 @@ var CgangularGenerator = module.exports = function CgangularGenerator(args, opti
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(CgangularGenerator, yeoman.generators.Base);
+util.inherits(MKangularGenerator, yeoman.generators.Base);
 
-CgangularGenerator.prototype.askFor = function askFor() {
+MKangularGenerator.prototype.askFor = function askFor() {
     var cb = this.async();
 
     var prompts = [{
@@ -51,7 +51,7 @@ CgangularGenerator.prototype.askFor = function askFor() {
     }.bind(this));
 };
 
-CgangularGenerator.prototype.askForUiRouter = function askFor() {
+MKangularGenerator.prototype.askForUiRouter = function askFor() {
     var cb = this.async();
 
     var prompts = [{
@@ -79,6 +79,6 @@ CgangularGenerator.prototype.askForUiRouter = function askFor() {
     }.bind(this));
 };
 
-CgangularGenerator.prototype.app = function app() {
+MKangularGenerator.prototype.app = function app() {
     this.directory('skeleton/','./');
 };
